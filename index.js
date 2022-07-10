@@ -9,7 +9,7 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
 exports.getAllInquiries = functions.https.onRequest(async (req, res) => {
     let config = {
         method: 'get',
-        url: 'http://localhost:5001/persona-service-807f7/us-central1/getAllInquiries',
+        url: 'https://withpersona.com/api/v1/inquiries/',
         headers: {
             'Authorization': 'Bearer persona_sandbox_ab49108f-a8d3-4a4a-9ce0-d8b57fb4d613'
         }
@@ -17,6 +17,7 @@ exports.getAllInquiries = functions.https.onRequest(async (req, res) => {
 
     await axios(config)
         .then((response) => {
+            res.set('Access-Control-Allow-Origin', '*');
             res.send(response.data.data);
         })
         .catch((error) => {
